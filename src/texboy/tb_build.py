@@ -13,11 +13,14 @@ def build(config_path, target, skip_deps):
     build_order = com_args.getBuildList(target, build_deps = not skip_deps)
     for (c_target, c_args) in build_order:
         logInfo(f"Building: {c_target}")
-        buildTex(
-            file      = c_args['src'],
-            build_dir = c_args['build_dir'],
-            job_name  = c_args['job_name'],
-        )
+        if c_args['.phony'] is None:
+            buildTex(
+                file      = c_args['src'],
+                build_dir = c_args['build_dir'],
+                job_name  = c_args['job_name'],
+            )
+        else:
+            logInfo(f".phony target")
     # Once built, de-init macro file
     tb_macro.saveMacros(None, mac_args, None)
     return

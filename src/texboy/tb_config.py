@@ -24,6 +24,7 @@ COMMAND_VARIABLES = {
         "groups":        [],
         "depends":       [],
         "group-depends": [],
+        ".phony":        None
     },
     "diff": {
         "build_dir":       None,
@@ -135,6 +136,9 @@ class CommandArguments:
         return self._repo
 
     def targetCanCompile(self, target):
+        phony = self.config.getValue("build", target, ".phony", default = None)
+        if phony is not None:
+            return True
         src = self.config.getValue("build", target, "src", default = None)
         return (src is not None)
 
@@ -155,12 +159,13 @@ class CommandArguments:
         out = {}
         for k, default in COMMAND_VARIABLES["build"].items():
             out[k] = self.config.getValue("build", target, k, default = default)
-        if out['src'] is None:
-            raise TBConfigError(f"Target `{target}' does not have `src'")
-        if out['build_dir'] is None:
-            out['build_dir'] = self.config.getValue("default", "build_dir", default = None)
+        if out['.phony'] is None:
+            if out['src'] is None:
+                raise TBConfigError(f"Target `{target}' does not have `src'")
             if out['build_dir'] is None:
-                raise TBConfigError(f"Target `{target}' does not have `build_dir' and no default defined.")
+                out['build_dir'] = self.config.getValue("default", "build_dir", default = None)
+                if out['build_dir'] is None:
+                    raise TBConfigError(f"Target `{target}' does not have `build_dir' and no default defined.")
         for k,v in out.items(): 
             try:
                 if v is None:

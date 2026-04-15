@@ -22,7 +22,8 @@ def diff(config_path, target, ref_version, skip_deps):
     # Pre build
     if len(pre_build) > 0:
         raise NotImplementedError("Diff dependency building not implemented yet!")
-
+    if final_build[1]['.phony'] is None:
+        raise NotImplementedError("Cannot build diff for .phony target")
     # Run diff build
     buildDiff(
         final_build[1]['src'],

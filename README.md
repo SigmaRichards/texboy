@@ -97,6 +97,7 @@ The following sections specify keys used in the various tables used by texboy.
  - `build_dir`: The directory to use when building when target has unspecified. No default.
 
 #### Table `[build.{target}]`
+ - `.phony`: If this key is defined at all, then texboy won't run any commands to compile. It will still check for dependencies though. No default.
  - `src`: The root source file for the target to build. No default.
  - `build_dir`: The directory to place build artifacts in when building. No default, but will check `default.build_dir` if unspecified.
  - `job_name`: The job name to pass to latexmk when building. Defaults to `"{target}"`.
