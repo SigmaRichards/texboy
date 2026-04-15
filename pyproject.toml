@@ -1,0 +1,20 @@
+[project]
+name = "texboy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "SigmaRichards", email = "danielscott.hess@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "gitpython>=3.1.46",
+    "toml>=0.10.2",
+]
+
+[project.scripts]
+texboy = "texboy:main"
+
+[build-system]
+requires = ["uv_build>=0.9.27,<0.10.0"]
+build-backend = "uv_build"
