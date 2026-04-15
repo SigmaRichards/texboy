@@ -220,3 +220,23 @@ git stash pop
 latexdiff {expand_ref} {expand_src} > {diff_tex}
 latexmk {diff_tex} -outdir={build_dir} -jobname={job_name}
 ```
+
+## Future Work
+
+There's still some functionality I'd like to add, but is low priority at the moment.
+
+### PDF compression
+
+`pdflatex` by default can produce very large PDFs, and it has come up for me previously that relatively simple documents have gone over maximum upload sizes. In the past I've used ghostscript, however, having this functionality apart of texboy would be nice.
+
+### Dependency tree
+
+I usually write latex documents using multiple source files, and occasionally will move/rename/copy files when I'm rewriting sections. Being able to see a dependency tree, and have notes for when a dependency isn't where it says it is, has been useful for me in the past.
+
+### Spellcheck
+
+I suspect this is not a problem for most people who use dedicated latex editors/IDEs, but I use neovim for most of my writing, and am yet to find a spellchecker I'm happy with. I've used commandline spellcheckers in the past which handle latex documents, which is what I'd like texboy to interface with, but I haven't decided on a good way to do this, or found a spellchecker I'm happy with.
+
+### Generic build commands
+
+This is the lowest priority task at the moment. The purpose would be to run custom scripts/commands when building certain targets, such as a script which generates image files etc. While I think it is useful to only need a single tool for a project, I don't want this to become another generic build-system so I'm still debating whether the usefulness outweighs the added complexity. Texboy is first and foremost, a tool for building ***LaTeX*** documents.
